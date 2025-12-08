@@ -29,7 +29,7 @@
                 <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100" data-aos="fade-up">
                     <div class="h-2 bg-gradient-to-r from-benin-green via-benin-yellow to-benin-red"></div>
 
-                    <form id="editForm" action="{{ route('contenus.update', $contenu->id) }}" method="POST"
+                    <form id="editForm" action="{{ route('admin.contenus.update', $contenu->id) }}" method="POST"
                         enctype="multipart/form-data" class="p-8 space-y-8">
                         @csrf
                         @method('PUT')
@@ -231,7 +231,7 @@
 
                     </form>
 
-                    <form id="delete-form" action="{{ route('contenus.destroy', $contenu->id) }}" method="POST"
+                    <form id="delete-form" action="{{ route('admin.contenus.destroy', $contenu->id) }}" method="POST"
                         class="hidden">
                         @csrf
                         @method('DELETE')
