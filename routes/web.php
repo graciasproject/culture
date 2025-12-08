@@ -13,6 +13,7 @@ use App\Http\Controllers\MediaController;
 use App\Http\Controllers\CommentaireController;
 use App\Http\Controllers\PaymentController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 
 // Inclusion des routes d'authentification
 require __DIR__ . '/auth.php';
@@ -89,3 +90,14 @@ Route::get('/dashboard', function () {
     }
     return redirect()->route('home.auth');
 })->name('dashboard');
+
+Route::get('/setup-seeds-secret', function () {
+    try {
+        // On lance le seeder en forçant l'exécution (car on est en prod)
+        Artisan::call('db:seed', ['--force' => true]);
+        
+        return 'Succès ! La base de données a été remplie.';
+    } catch (\Exception $e) {
+        return 'Erreur : ' . $e->getMessage();
+    }
+});
