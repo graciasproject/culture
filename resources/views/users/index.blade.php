@@ -151,7 +151,7 @@
                                     <!-- Actions -->
                                     <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
                                         <div class="flex items-center justify-end space-x-2">
-                                            <a href="{{ route('users.show', $user) }}"
+                                            <a href="{{ route('admin.users.show', $user) }}"
                                                 class="text-benin-green hover:text-benin-dark-green transition-colors duration-300 transform hover:scale-110"
                                                 title="Voir le profil">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor"
@@ -163,7 +163,7 @@
                                                 </svg>
                                             </a>
 
-                                            <a href="{{ route('users.edit', $user) }}"
+                                            <a href="{{ route('admin.users.edit', $user) }}"
                                                 class="text-blue-600 hover:text-blue-800 transition-colors duration-300 transform hover:scale-110"
                                                 title="Modifier">
                                                 <svg class="w-5 h-5" fill="none" stroke="currentColor"
