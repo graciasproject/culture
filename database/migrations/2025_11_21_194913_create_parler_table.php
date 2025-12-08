@@ -17,6 +17,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreign('id_region')->references('id')->on('regions');
             $table->foreign('id_langue')->references('id')->on('langues');
+        $table->primary(['id_region', 'id_langue']);
         });
     }
 
