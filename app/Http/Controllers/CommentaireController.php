@@ -63,28 +63,23 @@ class CommentaireController extends Controller implements HasMiddleware
      * PUBLIC/AUTH : Enregistrer un nouveau commentaire
      */
     public function store(Request $request)
-    {
-        // 1. Validation
-        $request->validate([
-            'texte' => 'required|string|max:1000',
-            'contenu_id' => 'required|exists:contenus,id',
-            'note' => 'nullable|integer|min:1|max:5',
-        ]);
+{
+    $request->validate([
+        'texte' => 'required|string',
+        'contenu_id' => 'required|exists:contenus,id',
+        'note' => 'nullable|integer|min:1|max:5', // Si vous gérez les notes
+    ]);
 
-        // 2. Création
-        Commentaire::create([
-            'texte' => $request->texte,
-            'note' => $request->note, // Peut être null
-            'date' => now(),
-            'id_utilisateur' => Auth::id(), // L'utilisateur connecté
-            'id_contenu' => $request->contenu_id,
-        ]);
+    Commentaire::create([
+        'user_id' => auth()->id(),
+        'contenu_id' => $request->contenu_id,
+        'texte' => $request->texte,
+        'note' => $request->note,
+        // 'is_valid' => true, // Décommentez si les commentaires sont publiés directement sans modération
+    ]);
 
-        // 3. Redirection vers la page du contenu (pour voir son commentaire apparaître)
-        // On ajoute le fragment #commentaires pour scroller direct en bas
-        return redirect()->route('contenus.show', $request->contenu_id)
-            ->with('success', 'Votre avis a été publié !');
-    }
+    return back()->with('success', 'Votre commentaire a été ajouté.');
+}
 
     /**
      * PUBLIC/AUTH : Voir le détail d'un commentaire (Vue immersive)

@@ -197,7 +197,7 @@
                         </a>
 
                         {{-- BOUTON 2: Statistiques / Refresh --}}
-                        <a href="{{ route('admin.stats.refresh') }}" {{-- CORRIGÉ: admin.stats.refresh --}}
+                        <a href="{{ route('admin.statsboard') }}" {{-- CORRIGÉ: admin.stats.refresh --}}
                             class="flex items-center space-x-4 p-4 bg-gradient-to-r from-benin-yellow/10 to-benin-yellow/5 hover:from-benin-yellow/20 hover:to-benin-yellow/10 rounded-xl transition-all duration-300 group border border-benin-yellow/20 hover:border-benin-yellow/40">
                             <div
                                 class="p-3 bg-benin-yellow rounded-xl group-hover:scale-110 transition-transform duration-300">

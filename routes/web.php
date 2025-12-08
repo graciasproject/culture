@@ -51,6 +51,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+Route::post('/commentaires', [CommentaireController::class, 'store'])->name('commentaires.store');
 });
 
 // ======================================================================
@@ -79,7 +80,10 @@ Route::middleware(['auth', 'admin']) // Vérifie Auth ET Role 1
     
     // Commentaires (juste liste et suppression)
     Route::resource('commentaires', CommentaireController::class)->only(['index', 'destroy']);
+Route::get('/statistiques-avancees', [AdminController::class, 'stats'])
+             ->name('statsboard'); // Nom que tu as utilisé dans ta vue
 });
+
 
 // ======================================================================
 // 4. REDIRECTION INTELLIGENTE

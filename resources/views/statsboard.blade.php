@@ -19,7 +19,7 @@
                         </svg>
                         Retour Dashboard
                     </a>
-                    <a href="{{ route('statsboard') }}"
+                    <a href="{{ route('admin.statsboard') }}"
                         class="flex items-center px-4 py-3 bg-benin-yellow text-gray-900 rounded-lg transition shadow-lg shadow-yellow-500/20 font-bold">
                         <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -118,7 +118,8 @@
                 red: '#E8112D',
                 gray: '#4B5563',
                 palette: ['#008751', '#FCD116', '#E8112D', '#10B981', '#F59E0B', '#EF4444', '#3B82F6',
-                    '#8B5CF6']
+                    '#8B5CF6'
+                ]
             };
 
             // 1. CHART TYPE CONTENU (Doughnut)
@@ -222,7 +223,8 @@
                     datasets: [{
                         data: {!! json_encode($charts['statuts']['data'] ?? []) !!},
                         backgroundColor: [colors.green, colors.yellow, colors
-                        .gray], // Publié, En attente, Brouillon
+                            .gray
+                        ], // Publié, En attente, Brouillon
                         borderWidth: 2,
                         borderColor: '#fff'
                     }]

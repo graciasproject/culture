@@ -181,9 +181,9 @@
                         <div class="bg-gray-900 rounded-xl p-6 border border-gray-800">
                             <h3 class="text-benin-yellow font-bold text-sm uppercase mb-4">Administration</h3>
                             <div class="space-y-3">
-                                <a href="{{ route('contenus.edit', $contenu) }}"
+                                <a href="{{ route('admin.contenus.edit', $contenu) }}"
                                     class="block w-full py-2 bg-gray-800 hover:bg-gray-700 text-center rounded text-white transition">Modifier</a>
-                                <form action="{{ route('contenus.destroy', $contenu) }}" method="POST"
+                                <form action="{{ route('admin.contenus.destroy', $contenu) }}" method="POST"
                                     onsubmit="return confirm('Supprimer ?');">
                                     @csrf @method('DELETE')
                                     <button
