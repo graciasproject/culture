@@ -1,0 +1,108 @@
+/* auth.css */
+
+/* Formulaire central et glass effect */
+.auth-form-container {
+    position: relative;
+    z-index: 10;
+    max-width: 400px;
+    width: 90%;
+    margin: auto;
+    padding: 2rem;
+    border-radius: 2rem;
+    background: rgba(0, 0, 0, 0.5); /* fond sombre pour contraste */
+    backdrop-filter: blur(10px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+/* Champs de saisie */
+.auth-form-container input {
+    width: 100%;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: rgba(255, 255, 255, 0.1);
+    color: white;
+    margin-bottom: 1rem;
+    transition: all 0.3s ease;
+}
+
+.auth-form-container input::placeholder {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.auth-form-container input:focus {
+    border-color: #fcd116; /* jaune Bénin */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(252, 209, 22, 0.5);
+}
+
+/* Bouton submit */
+.auth-form-container button {
+    width: 100%;
+    padding: 0.75rem;
+    border-radius: 0.75rem;
+    background-color: #008751; /* vert Bénin */
+    color: white;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.auth-form-container button:hover {
+    background-color: #006b42; /* vert foncé Bénin */
+}
+
+/* Liens de navigation */
+.auth-form-container .auth-link {
+    color: #fcd116; /* jaune Bénin */
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.auth-form-container .auth-link:hover {
+    color: #e8112d; /* rouge Bénin */
+}
+
+/* Titre */
+.auth-form-container h2 {
+    text-align: center;
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+}
+
+/* Erreurs de validation */
+.auth-form-container .validation-errors {
+    background-color: rgba(255, 0, 0, 0.2);
+    color: #ff4d4f;
+    padding: 0.75rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* Pour le carousel de fond */
+.auth-bg-carousel {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.auth-bg-carousel img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: blur(8px);
+    animation: slide-carousel 60s infinite;
+}
+
+/* Animation simple du carousel */
+@keyframes slide-carousel {
+    0%,
+    100% {
+        transform: translateX(0%);
+    }
+    50% {
+        transform: translateX(-100%);
+    }
+}

@@ -1,0 +1,172 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Couleurs personnalisées Bénin */
+:root {
+    --benin-green: #008751;
+    --benin-yellow: #fcd116;
+    --benin-red: #e8112d;
+    --benin-dark-green: #006b42;
+    --benin-dark-yellow: #e6b800;
+    --benin-dark-red: #c10a25;
+}
+
+/* Mode sombre basé sur la classe .dark */
+.dark {
+    --text-color: #f9fafb;
+}
+
+/* Gradient animé Bénin */
+.benin-gradient {
+    background: linear-gradient(
+        -45deg,
+        var(--benin-green),
+        var(--benin-yellow),
+        var(--benin-red),
+        var(--benin-dark-green)
+    );
+    background-size: 400% 400%;
+    animation: gradient 8s ease infinite;
+}
+
+/* Glass morphism */
+.glass {
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+.glass-dark {
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Scrollbar personnalisée */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: var(--benin-green);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--benin-dark-green);
+}
+
+/* Text glow */
+.text-glow {
+    text-shadow: 0 0 10px rgba(252, 209, 22, 0.3);
+}
+
+/* Hover lift */
+.hover-lift {
+    transition: all 0.3s ease;
+}
+.hover-lift:hover {
+    transform: translateY(-5px);
+}
+
+/* Dark mode transition */
+.dark-mode-transition {
+    transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Navigation links */
+.nav-link {
+    @apply text-gray-700 dark:text-white transition-all duration-300 font-medium relative;
+}
+
+/* Hover couleurs via CSS pur (compatible Tailwind) */
+.nav-link:hover {
+    color: var(--benin-green);
+}
+.dark .nav-link:hover {
+    color: var(--benin-yellow);
+}
+
+/* Soulignement animé */
+.nav-link::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--benin-green);
+    transition: all 0.3s ease;
+}
+
+/* Activation via .group dans le HTML */
+.group:hover .nav-link::after {
+    width: 100%;
+}
+
+/* Dark mode texte pour prose */
+.dark .prose {
+    color: #f9fafb;
+}
+.dark .prose a {
+    color: #93c5fd;
+}
+.dark .prose p,
+.dark .prose span,
+.dark .prose li {
+    color: #f9fafb;
+}
+
+/* Dropdown */
+.dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+.dropdown-menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s ease;
+}
+
+/* Animations */
+@keyframes float {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-20px);
+    }
+}
+@keyframes gradient {
+    0%,
+    100% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+}
+@keyframes fadeInUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+@keyframes slideInLeft {
+    0% {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
