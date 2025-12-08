@@ -22,7 +22,7 @@
                 <h2 class="text-xl font-bold text-white">Modification de la région</h2>
             </div>
 
-            <form action="{{ route('regions.update', $region) }}" method="POST" class="p-6 space-y-6">
+            <form action="{{ route('admin.regions.update', $region) }}" method="POST" class="p-6 space-y-6">
                 @csrf
                 @method('PUT')
 
@@ -158,7 +158,7 @@
             </form>
 
             <!-- Delete Form -->
-            <form id="delete-form" action="{{ route('regions.destroy', $region) }}" method="POST" class="hidden">
+            <form id="delete-form" action="{{ route('admin.regions.destroy', $region) }}" method="POST" class="hidden">
                 @csrf
                 @method('DELETE')
             </form>

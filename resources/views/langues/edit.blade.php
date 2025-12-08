@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('langues.update', $langue) }}" method="POST" class="p-6 space-y-6">
+            <form action="{{ route('admin.langues.update', $langue) }}" method="POST" class="p-6 space-y-6">
                 @csrf
                 @method('PUT')
 
@@ -103,7 +103,7 @@
             </form>
 
             <!-- Delete Form -->
-            <form id="delete-form" action="{{ route('langues.destroy', $langue) }}" method="POST" class="hidden">
+            <form id="delete-form" action="{{ route('admin.langues.destroy', $langue) }}" method="POST" class="hidden">
                 @csrf
                 @method('DELETE')
             </form>

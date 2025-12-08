@@ -27,7 +27,7 @@
                 </div>
             </div>
 
-            <form action="{{ route('medias.update', $media) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
+            <form action="{{ route('admin.medias.update', $media) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
                 @csrf
                 @method('PUT')
 
@@ -167,13 +167,13 @@
                     
                     <button type="submit" 
                             class="px-6 py-3 bg-benin-green text-white rounded-lg hover:bg-benin-dark-green transition-all duration-300 transform hover:scale-105 font-medium shadow-lg">
-                        💾 Enregistrer les modifications
+                         Enregistrer les modifications
                     </button>
                 </div>
             </form>
 
             <!-- Delete Form -->
-            <form id="delete-form" action="{{ route('medias.destroy', $media) }}" method="POST" class="hidden">
+            <form id="delete-form" action="{{ route('admin.medias.destroy', $media) }}" method="POST" class="hidden">
                 @csrf
                 @method('DELETE')
             </form>
