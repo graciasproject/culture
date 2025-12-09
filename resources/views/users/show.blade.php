@@ -8,8 +8,7 @@
         <div class="relative h-80 w-full bg-gray-900 overflow-hidden group">
 
             <div class="absolute inset-0">
-                <img src="https://images.unsplash.com/photo-1590940866873-100d0752538b?q=80&w=2070&auto=format&fit=crop"
-                    alt="Culture Benin Cover"
+                <img src="{{ asset('storage/' . $user->photo) }}" alt="{{ $user->prenom }}"
                     class="w-full h-full object-cover opacity-40 group-hover:scale-105 transition-transform duration-1000">
                 <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b0b] via-[#0b0b0b]/60 to-transparent"></div>
             </div>
