@@ -20,7 +20,7 @@ class PaymentController extends Controller
         $payment = Payment::create([
             'user_id' => $user->id,
             'contenu_id' => $contenu->id,
-            'reference_fedapay' => 'kkiapay_' . $user->id . '_' . $contenu->id, // Génération d'une référence unique
+            'reference_fedapay' => 'kkiapay_' . $user->id . '_' . $contenu->id . '_' . uniqid(), // Génération d'une référence vraiment unique
             'amount' => $amount,
             'status' => 'pending'
         ]);
