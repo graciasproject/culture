@@ -59,9 +59,12 @@ class PaymentController extends Controller
                     ->latest()
                     ->first();
 
-                if ($payment && $payment->reference_fedapay === $transactionId) {
+                // FIX: On ne vérifie plus que reference_fedapay === transactionId
+                // car Kkiapay renvoie son propre ID de transaction different du nôtre.
+                if ($payment) {
                     $payment->update([
-                        'status' => 'approved'
+                        'status' => 'approved',
+                        'reference_fedapay' => $transactionId // On met à jour avec la vraie ref Kkiapay pour traçabilité
                     ]);
 
                     return redirect()->route('contenus.show', $payment->contenu_id)
