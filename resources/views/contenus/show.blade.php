@@ -145,8 +145,29 @@
                                             <h4 class="font-bold text-gray-200 text-sm">
                                                 {{ $comm->utilisateur->prenom }} {{ $comm->utilisateur->nom }}
                                             </h4>
-                                            <span
-                                                class="text-xs text-gray-600">{{ $comm->created_at->diffForHumans() }}</span>
+                                            
+                                            <div class="flex items-center gap-3">
+                                                <span class="text-xs text-gray-600">{{ $comm->created_at->diffForHumans() }}</span>
+                                                
+                                                @auth
+                                                    {{-- Actions Propriétaire --}}
+                                                    @if(Auth::id() === $comm->id_utilisateur)
+                                                        <a href="{{ route('commentaires.edit', $comm) }}" class="text-xs text-blue-400 hover:underline">Modifier</a>
+                                                        
+                                                        <form action="{{ route('commentaires.destroy', $comm) }}" method="POST" class="inline" onsubmit="return confirm('Supprimer votre commentaire ?');">
+                                                            @csrf @method('DELETE')
+                                                            <button class="text-xs text-red-500 hover:underline">Supprimer</button>
+                                                        </form>
+                                                    
+                                                    {{-- Actions Admin (si pas propriétaire, il peut quand même supprimer) --}}
+                                                    @elseif(Auth::user()->id_role === 1)
+                                                        <form action="{{ route('commentaires.destroy', $comm) }}" method="POST" class="inline" onsubmit="return confirm('Confirmer la modération ?');">
+                                                            @csrf @method('DELETE')
+                                                            <button class="text-xs text-red-600 font-bold hover:underline">SUPPRIMER (Admin)</button>
+                                                        </form>
+                                                    @endif
+                                                @endauth
+                                            </div>
                                         </div>
 
                                         @if ($comm->note)
@@ -158,14 +179,8 @@
                                         @endif
 
                                         <p class="text-gray-400 text-sm leading-relaxed mb-2">
-                                            {{ Str::limit($comm->texte, 200) }}
+                                            {{ Str::limit($comm->texte, 500) }}
                                         </p>
-
-                                        {{-- Lien vers le détail --}}
-                                        <a href="{{ route('commentaires.show', $comm) }}"
-                                            class="text-xs font-bold text-benin-yellow opacity-60 hover:opacity-100 transition">
-                                            LIRE L'AVIS COMPLET →
-                                        </a>
                                     </div>
                                 </div>
                             @empty

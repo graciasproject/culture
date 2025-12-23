@@ -26,14 +26,14 @@ class CommentaireController extends Controller implements HasMiddleware
                 }
 
                 // 2. Définition des actions réservées STRICTEMENT à l'ADMINISTRATEUR (Rôle 1)
-                // Seul l'admin peut voir la liste globale (index) ou supprimer (destroy)
-                $adminActions = ['index', 'destroy', 'edit', 'update'];
+                // Seul l'admin peut voir la liste globale (index)
+                // Pour destroy/edit/update, on vérifie au cas par cas dans la méthode
+                $adminOnlyActions = ['index'];
 
-                // On vérifie si l'action actuelle est dans la liste admin
-                // $request->route()->getActionMethod() récupère le nom de la fonction (ex: 'index')
+                // On vérifie si l'action actuelle est dans la liste admin strict
                 $currentAction = $request->route()->getActionMethod();
 
-                if (in_array($currentAction, $adminActions)) {
+                if (in_array($currentAction, $adminOnlyActions)) {
                     // Si ce n'est pas un admin, on bloque
                     if ($user->id_role !== 1) {
                         return redirect()->back()->with('error', 'Action non autorisée.');
@@ -71,11 +71,11 @@ class CommentaireController extends Controller implements HasMiddleware
     ]);
 
     Commentaire::create([
-        'user_id' => auth()->id(),
-        'contenu_id' => $request->contenu_id,
+        'id_utilisateur' => auth()->id(), // FIX: user_id -> id_utilisateur
+        'id_contenu' => $request->contenu_id, // FIX: contenu_id -> id_contenu (si colonne différente, mais ici le modèle a id_contenu)
         'texte' => $request->texte,
         'note' => $request->note,
-        // 'is_valid' => true, // Décommentez si les commentaires sont publiés directement sans modération
+        'date' => now(), // Ajout de la date explicite si nécessaire
     ]);
 
     return back()->with('success', 'Votre commentaire a été ajouté.');
@@ -93,10 +93,17 @@ class CommentaireController extends Controller implements HasMiddleware
     }
 
     /**
-     * ADMIN : Supprimer un commentaire (Modération)
+     * PUBLIC/AUTH (Owner) + ADMIN : Supprimer un commentaire
      */
     public function destroy(Commentaire $commentaire)
     {
+        $user = Auth::user();
+
+        // Autorisation : Admin (1) OU Propriétaire du commentaire
+        if ($user->id_role !== 1 && $user->id !== $commentaire->id_utilisateur) {
+             return redirect()->back()->with('error', 'Vous ne pouvez pas supprimer ce commentaire.');
+        }
+
         $commentaire->delete();
 
         // Si on supprime depuis la liste admin
@@ -104,17 +111,48 @@ class CommentaireController extends Controller implements HasMiddleware
             return redirect()->route('commentaires.index')->with('success', 'Commentaire supprimé.');
         }
 
-        // Si on supprime depuis la vue détail
-        return redirect()->route('contenus.show', $commentaire->id_contenu)->with('success', 'Commentaire supprimé.');
+        // Si on supprime depuis la vue détail ou show contenu
+        return redirect()->back()->with('success', 'Commentaire supprimé.');
     }
 
     /**
-     * ADMIN : Éditer un commentaire (Rare, mais utile pour modérer sans supprimer)
+     * PUBLIC/AUTH (Owner) : Afficher le formulaire d'édition
      */
     public function edit(Commentaire $commentaire)
     {
-        // On pourrait faire une vue edit, ou rediriger vers show pour l'instant
-        // Pour simplifier, on renvoie vers show en attendant une vue edit spécifique
-        return view('commentaires.show', compact('commentaire'));
+        $user = Auth::user();
+
+        // Autorisation : Propriétaire seulement (l'admin supprime, il n'édite pas forcément le texte des gens)
+        if ($user->id !== $commentaire->id_utilisateur) {
+             return redirect()->back()->with('error', 'Vous ne pouvez pas modifier ce commentaire.');
+        }
+
+        return view('commentaires.edit', compact('commentaire'));
+    }
+
+    /**
+     * PUBLIC/AUTH (Owner) : Mettre à jour le commentaire
+     */
+    public function update(Request $request, Commentaire $commentaire)
+    {
+        $user = Auth::user();
+
+        // Autorisation : Propriétaire seulement
+        if ($user->id !== $commentaire->id_utilisateur) {
+             return redirect()->back()->with('error', 'Action non autorisée.');
+        }
+
+        $request->validate([
+            'texte' => 'required|string',
+            'note' => 'nullable|integer|min:1|max:5',
+        ]);
+
+        $commentaire->update([
+            'texte' => $request->texte,
+            'note' => $request->note,
+        ]);
+
+        return redirect()->route('contenus.show', $commentaire->id_contenu)
+            ->with('success', 'Commentaire mis à jour.');
     }
 }
