@@ -40,7 +40,7 @@ class MediaController extends Controller
 
         Media::create($validatedData);
 
-        return redirect()->route('medias.index')
+        return redirect()->route('admin.medias.index')
                         ->with('success', 'Média créé avec succès!');
     }
 
@@ -74,7 +74,7 @@ class MediaController extends Controller
 
         $media->update($validatedData);
 
-        return redirect()->route('medias.index')
+        return redirect()->route('admin.medias.index')
                         ->with('success', 'Média mis à jour avec succès!');
     }
 
@@ -83,7 +83,7 @@ class MediaController extends Controller
         Storage::disk('public')->delete($media->chemin);
         $media->delete();
 
-        return redirect()->route('medias.index')
+        return redirect()->route('admin.medias.index')
                         ->with('success', 'Média supprimé avec succès!');
     }
 }

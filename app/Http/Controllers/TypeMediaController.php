@@ -16,19 +16,19 @@ class TypeMediaController extends Controller
     {
         $request->validate(['nom' => 'required|string|max:255']);
         TypeMedia::create($request->all());
-        return redirect()->route('types-media.index')->with('success', 'Type de média créé!');
+        return redirect()->route('admin.types-media.index')->with('success', 'Type de média créé!');
     }
 
     public function update(Request $request, TypeMedia $typeMedia)
     {
         $request->validate(['nom' => 'required|string|max:255']);
         $typeMedia->update($request->all());
-        return redirect()->route('types-media.index')->with('success', 'Type de média mis à jour!');
+        return redirect()->route('admin.types-media.index')->with('success', 'Type de média mis à jour!');
     }
 
     public function destroy(TypeMedia $typeMedia)
     {
         $typeMedia->delete();
-        return redirect()->route('types-media.index')->with('success', 'Type de média supprimé!');
+        return redirect()->route('admin.types-media.index')->with('success', 'Type de média supprimé!');
     }
 }

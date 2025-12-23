@@ -58,7 +58,7 @@ class UserController extends Controller
 
     User::create($validatedData);
 
-    return redirect()->route('users.index')->with('success', 'Utilisateur créé avec succès.');
+    return redirect()->route('admin.users.index')->with('success', 'Utilisateur créé avec succès.');
 }
 
     /**
@@ -114,7 +114,7 @@ class UserController extends Controller
 
         $user->update($validatedData);
 
-        return redirect()->route('users.index')->with('success', 'Utilisateur mis à jour avec succès.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur mis à jour avec succès.');
     }
 
     /**
@@ -126,6 +126,6 @@ class UserController extends Controller
         }
         $user->delete();
 
-        return redirect()->route('users.index')->with('success', 'Utilisateur supprimé avec succès.');
+        return redirect()->route('admin.users.index')->with('success', 'Utilisateur supprimé avec succès.');
     }
 }

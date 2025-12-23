@@ -54,7 +54,7 @@ class RegionController extends Controller
             $region->langues()->attach($request->langues);  
         } 
         
-        return redirect()->route('regions.index')
+        return redirect()->route('admin.regions.index')
                          ->with('success', 'Région créée avec succès!');
     }  
 
@@ -112,7 +112,7 @@ class RegionController extends Controller
             $region->langues()->sync($request->langues);
         }
 
-        return redirect()->route('regions.index')
+        return redirect()->route('admin.regions.index')
                          ->with('success', 'Région mise à jour avec succès!');  
     }
 
@@ -123,7 +123,7 @@ class RegionController extends Controller
     {
         $region->delete();
 
-        return redirect()->route('regions.index')
+        return redirect()->route('admin.regions.index')
                          ->with('success', 'Région supprimée avec succès!');
     }
 }

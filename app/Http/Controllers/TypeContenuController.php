@@ -25,8 +25,8 @@ class TypeContenuController extends Controller
         $request->validate(['nom_type' => 'required|string|max:255']);
         TypeContenu::create($request->all());
         
-        // Redirection vers la route 'types.index' (définie dans web.php)
-        return redirect()->route('types.index')->with('success', 'Type créé.');
+        // Redirection vers la route 'admin.types-contenu.index'
+        return redirect()->route('admin.types-contenu.index')->with('success', 'Type créé.');
     }
 
     public function edit(TypeContenu $type)
@@ -37,12 +37,12 @@ class TypeContenuController extends Controller
     public function update(Request $request, TypeContenu $type)
     {
         $type->update($request->all());
-        return redirect()->route('types.index');
+        return redirect()->route('admin.types-contenu.index');
     }
 
     public function destroy(TypeContenu $type)
     {
         $type->delete();
-        return redirect()->route('types.index');
+        return redirect()->route('admin.types-contenu.index');
     }
 }

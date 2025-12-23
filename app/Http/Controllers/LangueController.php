@@ -28,7 +28,7 @@ class LangueController extends Controller
 
         Langue::create($validatedData);
 
-        return redirect()->route('langues.index')
+        return redirect()->route('admin.langues.index')
                          ->with('success', 'Langue créée avec succès!');
     }
 
@@ -54,14 +54,14 @@ class LangueController extends Controller
 
         $langue->update($validatedData);
 
-        return redirect()->route('langues.index')
+        return redirect()->route('admin.langues.index')
                          ->with('success', 'Langue mise à jour avec succès!');
     }
 
     public function destroy(Langue $langue)
     {
         $langue->delete();
-        return redirect()->route('langues.index')
+        return redirect()->route('admin.langues.index')
                          ->with('success', 'Langue supprimée avec succès!');
     }
 }
