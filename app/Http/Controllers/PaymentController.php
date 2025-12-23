@@ -17,16 +17,16 @@ class PaymentController extends Controller
         $amount = $contenu->prix > 0 ? $contenu->prix : 200;
 
         // On crée un paiement "En attente" pour garder une trace
-        Payment::create([
+        $payment = Payment::create([
             'user_id' => $user->id,
             'contenu_id' => $contenu->id,
-            'reference_fedapay' => 'kkiapay_pending_' . uniqid(), // On met un ID temporaire
+            'reference_fedapay' => 'kkiapay_' . $user->id . '_' . $contenu->id, // Génération d'une référence unique
             'amount' => $amount,
             'status' => 'pending'
         ]);
 
         // On retourne une vue spéciale qui va ouvrir le Widget KKiaPay
-        return view('payment.kkiapay', compact('contenu', 'user', 'amount'));
+        return view('payment.kkiapay', compact('contenu', 'user', 'payment'));
     }
 
     // 2. RETOUR (CALLBACK) : On vérifie si ça a marché
@@ -59,12 +59,11 @@ class PaymentController extends Controller
                     ->latest()
                     ->first();
 
-                if ($payment) {
+                if ($payment && $payment->reference_fedapay === $transactionId) {
                     $payment->update([
-                        'status' => 'approved',
-                        'reference_fedapay' => $transactionId // On sauvegarde le vrai ID KKiaPay
+                        'status' => 'approved'
                     ]);
-                    
+
                     return redirect()->route('contenus.show', $payment->contenu_id)
                         ->with('success', 'Paiement KKiaPay validé avec succès !');
                 }

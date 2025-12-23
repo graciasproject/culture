@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str; // CORRECTION 2 : Import manquant pour Str
 use Illuminate\Routing\Controllers\HasMiddleware; // Pour Laravel 11+
 use Illuminate\Routing\Controllers\Middleware;    // Pour Laravel 11+
+use App\Models\Payment; // Import du modèle Payment
 
 class ContenuController extends Controller implements HasMiddleware
 {
@@ -123,6 +124,12 @@ class ContenuController extends Controller implements HasMiddleware
         
         if ($user->id_role === 1) {
             $hasPaid = true; 
+        } else {
+            // Vérification si l'utilisateur a payé le contenu
+            $hasPaid = Payment::where('user_id', $user->id)
+                ->where('contenu_id', $contenu->id)
+                ->where('status', 'approved')
+                ->exists();
         } 
 
         // Mapping pour l'affichage
