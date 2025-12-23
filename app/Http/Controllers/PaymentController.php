@@ -26,7 +26,7 @@ class PaymentController extends Controller
         ]);
 
         // On retourne une vue spéciale qui va ouvrir le Widget KKiaPay
-        return view('payment.kkiapay', compact('contenu', 'user', 'payment'));
+        return view('payment.kkiapay', compact('contenu', 'user', 'payment', 'amount'));
     }
 
     // 2. RETOUR (CALLBACK) : On vérifie si ça a marché
